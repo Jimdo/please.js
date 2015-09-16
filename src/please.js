@@ -1,5 +1,4 @@
 (function __pleaseClosure($, window) {
-	'use strict';
 	var console = window.console; // jshint unused: false
 
 var defaults = {
