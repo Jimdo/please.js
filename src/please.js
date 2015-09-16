@@ -623,8 +623,17 @@ UnserializableResponseData.create = function (obj) {
 };
 
 please.Error = function (error) {
+	if (!error) {
+		throw new Error('FIND ME IN ERRORCEPTION');
+	}
+
 	this.error = error;
 	$.extend(this, error);
+
+	if (!error) {
+		throw new Error('FIND ME IN ERRORCEPTION 2');
+	}
+
 	this.name = error.name;
 	this.message = error.message;
 
