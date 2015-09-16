@@ -622,17 +622,19 @@ UnserializableResponseData.create = function (obj) {
 	return $.extend(new UnserializableResponseData(), obj);
 };
 
-please.Error = function (error) {
+please.Error = function pleaseError(error) {
 	if (!error) {
-		throw new Error('FIND ME IN ERRORCEPTION');
+		var stack = [];
+		var fn = pleaseError;
+		while (fn = fn.caller && stack.length < 4) {
+			stack.push(fn.toString());
+		}
+		var stackTrace = stack.join('\n');
+		throw new Error('FIND ME IN ERRORCEPTION, stack: ' + stackTrace);
 	}
 
 	this.error = error;
 	$.extend(this, error);
-
-	if (!error) {
-		throw new Error('FIND ME IN ERRORCEPTION 2');
-	}
 
 	this.name = error.name;
 	this.message = error.message;
