@@ -564,6 +564,7 @@ Response.prototype = {
 							postSerializedResult();
 						},
 						function(error) {
+							error = error || new Error('Promise rejected without error given');
 							self.data = new please.Error(error);
 							self.success = false;
 							postSerializedResult();
@@ -625,7 +626,7 @@ please.Error = function pleaseError(error) {
 	if (!error) {
 		var stack = [];
 		var fn = pleaseError;
-		while (fn = fn.caller && stack.length < 4) {
+		while ((fn = fn.caller) && stack.length < 4) {
 			stack.push(fn.toString());
 		}
 		var stackTrace = stack.join('\n');
